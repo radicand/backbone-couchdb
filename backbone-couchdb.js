@@ -136,7 +136,7 @@ backbone-couchdb.js is licensed under the MIT license.
         _opts.startkey = opts.startkey || _startkey;
       }
       if ((opts.endkey != null) || (_endkey != null)) {
-        _opts.endkey = opts.endkey || (_endkey != null);
+        _opts.endkey = opts.endkey || _endkey;
       }
       if (opts.key != null) {
         _opts.key = opts.key;

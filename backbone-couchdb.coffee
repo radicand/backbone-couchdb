@@ -105,7 +105,7 @@ Backbone.couch_connector = con =
        _opts.startkey = opts.startkey or _startkey;
 
     if opts.endkey? or _endkey?
-       _opts.endkey = opts.endkey or _endkey?;
+       _opts.endkey = opts.endkey or _endkey;
        
     if opts.key?
        _opts.key = opts.key;

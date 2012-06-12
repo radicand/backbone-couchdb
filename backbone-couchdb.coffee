@@ -64,7 +64,11 @@ Backbone.couch_connector = con =
       if coll.db.ddoc?
         _ddoc = coll.db.ddoc
       if coll.db.keys?
-        keys = coll.db.keys 
+        keys = coll.db.keys
+      if coll.db.startkey?
+        _opts.startkey = coll.db.startkey
+      if coll.db.endkey?
+        _opts.endkey = coll.db.endkey
       if coll.db.include_docs?
         include_docs = coll.db.include_docs
       if coll.db.list?

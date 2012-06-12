@@ -61,7 +61,7 @@ backbone-couchdb.js is licensed under the MIT license.
       }
     },
     read_collection: function(coll, opts) {
-      var include_docs, keys, _ddoc, _list, _opts, _view,
+      var include_docs, keys, _ddoc, _endkey, _list, _opts, _startkey, _view,
         _this = this;
       _view = this.config.view_name;
       _ddoc = this.config.ddoc_name;
@@ -82,10 +82,10 @@ backbone-couchdb.js is licensed under the MIT license.
           keys = coll.db.keys;
         }
         if (coll.db.startkey != null) {
-          _opts.startkey = coll.db.startkey;
+          _startkey = coll.db.startkey;
         }
         if (coll.db.endkey != null) {
-          _opts.endkey = coll.db.endkey;
+          _endkey = coll.db.endkey;
         }
         if (coll.db.include_docs != null) {
           include_docs = coll.db.include_docs;
@@ -132,11 +132,11 @@ backbone-couchdb.js is licensed under the MIT license.
       if (opts.include_docs != null) {
         _opts.include_docs = opts.include_docs;
       }
-      if (opts.startkey != null) {
-        _opts.startkey = opts.startkey;
+      if ((opts.startkey != null) || (_startkey != null)) {
+        _opts.startkey = opts.startkey || _startkey;
       }
-      if (opts.endkey != null) {
-        _opts.endkey = opts.endkey;
+      if ((opts.endkey != null) || (_endkey != null)) {
+        _opts.endkey = opts.endkey || (_endkey != null);
       }
       if (opts.key != null) {
         _opts.key = opts.key;

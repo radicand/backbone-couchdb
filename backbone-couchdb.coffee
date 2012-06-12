@@ -66,16 +66,16 @@ Backbone.couch_connector = con =
       if coll.db.keys?
         keys = coll.db.keys
       if coll.db.startkey?
-        _opts.startkey = coll.db.startkey
+        _startkey = coll.db.startkey
       if coll.db.endkey?
-        _opts.endkey = coll.db.endkey
+        _endkey = coll.db.endkey
       if coll.db.include_docs?
         include_docs = coll.db.include_docs
       if coll.db.list?
         _list = coll.db.list
     
     _opts = 
-      keys : keys
+      keys : keys,
       include_docs : include_docs
       success : (data) =>
         _temp = []
@@ -101,11 +101,11 @@ Backbone.couch_connector = con =
     if opts.include_docs?
        _opts.include_docs = opts.include_docs;
 
-    if opts.startkey?
-       _opts.startkey = opts.startkey;
+    if opts.startkey? or _startkey?
+       _opts.startkey = opts.startkey or _startkey;
 
-    if opts.endkey?
-       _opts.endkey = opts.endkey;
+    if opts.endkey? or _endkey?
+       _opts.endkey = opts.endkey or _endkey?;
        
     if opts.key?
        _opts.key = opts.key;

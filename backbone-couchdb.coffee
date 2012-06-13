@@ -122,6 +122,11 @@ Backbone.couch_connector = con =
     # delete keys if a custom view is requested but no custom keys 
     if (coll.db? and coll.db.view? and not coll.db.keys? and not opts.keys?) or opts.key
       delete _opts.keys
+      
+    # delete start/end keys if a custom view is requested with key or keys
+    if (coll.db? and coll.db.view? and coll.db.keys? or opts.keys?) or opts.key
+      delete _opts.startkey
+      delete _opts.endkey
     
     if _list 
       @helpers.make_db().list "#{_ddoc}/#{_list}", "#{_view}", _opts   

@@ -242,6 +242,7 @@ class Backbone.Collection extends Backbone.Collection
       include_docs : true
       collection : con.helpers.extract_collection_name(@)
       filter : "#{con.config.ddoc_name}/by_collection"
+      timeout : 2500
     _.extend opts, @db
     if opts.filter == "_view"
       opts.view = (opts.ddoc || con.config.ddoc_name) + "/" + opts.view

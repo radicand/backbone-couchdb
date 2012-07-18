@@ -92,32 +92,28 @@ Backbone.couch_connector = con =
         opts.complete res
 
     # support view querying opts http://wiki.apache.org/couchdb/HTTP_view_API    
-    if opts.limit?
-       _opts.limit = opts.limit;
+    view_options = [
+      "key"
+      "keys"
+      "startkey"
+      "startkey_docid"
+      "endkey"
+      "endkey_docid"
+      "limit"
+      "stale"
+      "descending"
+      "skip"
+      "group"
+      "group_level"
+      "reduce"
+      "include_docs"
+      "inclusive_end"
+      "update_seq"
+    ]
 
-    if opts.skip?
-       _opts.skip = opts.skip;
-
-    if opts.include_docs?
-       _opts.include_docs = opts.include_docs;
-
-    if opts.startkey? or _startkey?
-       _opts.startkey = opts.startkey or _startkey;
-
-    if opts.endkey? or _endkey?
-       _opts.endkey = opts.endkey or _endkey;
-       
-    if opts.key?
-       _opts.key = opts.key;
-    
-    if opts.keys?
-       _opts.keys = opts.keys;
-
-    if opts.startkey_docid?
-       _opts.startkey_docid = opts.startkey_docid;
-
-    if opts.endkey_docid?
-       _opts.endkey_docid = opts.endkey_docid;
+    for option in view_options
+      if opts[option]?
+        _opts[option] = opts[option]
 
     # delete keys if a custom view is requested but no custom keys 
     if (coll.db? and coll.db.view? and not coll.db.keys? and not opts.keys?) or opts.key

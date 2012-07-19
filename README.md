@@ -16,6 +16,11 @@ Demos
 
 Changelog
 ---------
+* 1.2+
+  * This is a fork at radicand/backbone-couchdb - works best with radicand/jquery.couch.js
+  * Merged upstream pull request #25 - supporting one global changes feed
+  * Merged upstream pull request #51 - cleanup view param support
+  * Merged a few pull requests locally from me dealing with adding param support as well
 * 1.2
   * CouchDB list support [#37](https://github.com/janmonschke/backbone-couchdb/pull/37)
   * Support for custom design documents for collections [#38](https://github.com/janmonschke/backbone-couchdb/pull/38)

@@ -76,27 +76,17 @@ Backbone.couch_connector = con =
     _ddoc = @config.ddoc_name
     _list = @config.list_name
     keys = [@helpers.extract_collection_name coll]
-    include_docs = false
     if coll.db?
       coll.listen_to_changes() if coll.db.changes or @config.global_changes
       if coll.db.view?
         _view = coll.db.view
       if coll.db.ddoc?
         _ddoc = coll.db.ddoc
-      if coll.db.keys?
-        keys = coll.db.keys
-      if coll.db.startkey?
-        _startkey = coll.db.startkey
-      if coll.db.endkey?
-        _endkey = coll.db.endkey
-      if coll.db.include_docs?
-        include_docs = coll.db.include_docs
       if coll.db.list?
         _list = coll.db.list
     
     _opts = 
       keys : keys,
-      include_docs : include_docs
       success : (data) =>
         _temp = []
         for doc in data.rows
@@ -134,13 +124,15 @@ Backbone.couch_connector = con =
     for option in view_options
       if opts[option]?
         _opts[option] = opts[option]
+      else if coll.db[option]?
+        _opts[option] = opts[option]
 
     # delete keys if a custom view is requested but no custom keys 
     if (coll.db? and coll.db.view? and not coll.db.keys? and not opts.keys?) or opts.key
       delete _opts.keys
       
     # delete start/end keys if a custom view is requested with key or keys
-    if (coll.db? and coll.db.view? and coll.db.keys? or opts.keys?) or opts.key
+    if (coll.db? and coll.db.view? and coll.db.keys? or opts.keys?) or opts.key or _opts.keys or _opts.key
       delete _opts.startkey
       delete _opts.endkey
     

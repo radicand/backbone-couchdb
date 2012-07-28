@@ -83,13 +83,12 @@ backbone-couchdb.js is licensed under the MIT license.
       }
     },
     read_collection: function(coll, opts) {
-      var include_docs, keys, option, view_options, _ddoc, _endkey, _i, _len, _list, _opts, _startkey, _view,
+      var keys, option, view_options, _ddoc, _i, _len, _list, _opts, _view,
         _this = this;
       _view = this.config.view_name;
       _ddoc = this.config.ddoc_name;
       _list = this.config.list_name;
       keys = [this.helpers.extract_collection_name(coll)];
-      include_docs = false;
       if (coll.db != null) {
         if (coll.db.changes || this.config.global_changes) {
           coll.listen_to_changes();
@@ -100,25 +99,12 @@ backbone-couchdb.js is licensed under the MIT license.
         if (coll.db.ddoc != null) {
           _ddoc = coll.db.ddoc;
         }
-        if (coll.db.keys != null) {
-          keys = coll.db.keys;
-        }
-        if (coll.db.startkey != null) {
-          _startkey = coll.db.startkey;
-        }
-        if (coll.db.endkey != null) {
-          _endkey = coll.db.endkey;
-        }
-        if (coll.db.include_docs != null) {
-          include_docs = coll.db.include_docs;
-        }
         if (coll.db.list != null) {
           _list = coll.db.list;
         }
       }
       _opts = {
         keys: keys,
-        include_docs: include_docs,
         success: function(data) {
           var doc, _i, _len, _ref, _temp;
           _temp = [];
@@ -150,12 +136,14 @@ backbone-couchdb.js is licensed under the MIT license.
         option = view_options[_i];
         if (opts[option] != null) {
           _opts[option] = opts[option];
+        } else if (coll.db[option] != null) {
+          _opts[option] = opts[option];
         }
       }
       if (((coll.db != null) && (coll.db.view != null) && !(coll.db.keys != null) && !(opts.keys != null)) || opts.key) {
         delete _opts.keys;
       }
-      if (((coll.db != null) && (coll.db.view != null) && (coll.db.keys != null) || (opts.keys != null)) || opts.key) {
+      if (((coll.db != null) && (coll.db.view != null) && (coll.db.keys != null) || (opts.keys != null)) || opts.key || _opts.keys || _opts.key) {
         delete _opts.startkey;
         delete _opts.endkey;
       }

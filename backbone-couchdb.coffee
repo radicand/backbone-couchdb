@@ -125,7 +125,7 @@ Backbone.couch_connector = con =
       if opts[option]?
         _opts[option] = opts[option]
       else if coll.db[option]?
-        _opts[option] = opts[option]
+        _opts[option] = coll.db[option]
 
     # delete keys if a custom view is requested but no custom keys 
     if (coll.db? and coll.db.view? and not coll.db.keys? and not opts.keys?) or opts.key
